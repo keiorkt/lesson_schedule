@@ -13,7 +13,10 @@ public struct Lesson {
     let credit: Int
     let difficulty: Difficulty
     
-    enum Difficulty: Hashable{
-        case A,B,C,D
+    enum Difficulty: String {
+        case A = "A"
+        case B = "B"
+        case C = "C"
+        case D = "D"
     }
 }

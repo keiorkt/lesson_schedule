@@ -19,6 +19,7 @@ class GroupByViewModel {
     
     struct Output {
         let items: Driver<[SectionModel<String, Lesson>]>
+        let groupingTrigger: Driver<Void>
     }
     
     private let disposeBag = DisposeBag()
@@ -39,6 +40,8 @@ class GroupByViewModel {
             .map{[SectionModel(model: "", items: $0)]}
             .asDriver(onErrorJustReturn: [])
         
-        return Output(items: items)
+        let groupingTrigger = input.groupingTrigger.asDriver(onErrorJustReturn: ())
+        
+        return Output(items: items, groupingTrigger: groupingTrigger)
     }
 }

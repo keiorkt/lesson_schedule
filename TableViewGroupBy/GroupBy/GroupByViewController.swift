@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-private let reuseIdentifier = "LessonCell"
+private let lessonReuseIdentifier = "LessonCell"
 
 class GroupByViewController: UIViewController {
     
@@ -32,6 +32,7 @@ class GroupByViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.register(R.nib.lessonCell(), forCellReuseIdentifier: lessonReuseIdentifier)
         tableView.dataSource = nil
         tableView.delegate = nil
         
@@ -42,9 +43,9 @@ class GroupByViewController: UIViewController {
     private func setUpDataSource() {
         
         let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String,Lesson>>(
-            configureCell: {ds, tv, ip, item in
-                let cell = tv.dequeueReusableCell(withIdentifier: reuseIdentifier) ?? UITableViewCell(style: .default, reuseIdentifier: reuseIdentifier)
-                cell.textLabel?.text = item.name
+            configureCell: { (ds, tv, ip, item) -> UITableViewCell in
+                let cell = tv.dequeueReusableCell(withIdentifier: lessonReuseIdentifier) as! LessonCell
+                cell.bind(item)
                 return cell
         })
         
@@ -54,9 +55,7 @@ class GroupByViewController: UIViewController {
     private func bindViewModel() {
         
         let groupingTrigger = groupButton.rx.tap
-            .map{ _ in ()
-                print("tapped")
-            }
+            .map{ _ in ()}
             .asDriver(onErrorJustReturn: ())
         
         let trigger = rx
@@ -70,6 +69,10 @@ class GroupByViewController: UIViewController {
         
         output.items
             .drive(tableView.rx.items(dataSource: dataSource!))
+            .disposed(by: disposeBag)
+        
+        output.groupingTrigger
+            .drive()
             .disposed(by: disposeBag)
     }
 }

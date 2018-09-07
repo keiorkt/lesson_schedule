@@ -36,15 +36,23 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 0 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 1 nibs.
   struct nib {
+    /// Nib `LessonCell`.
+    static let lessonCell = _R.nib._LessonCell()
+    
+    /// `UINib(name: "LessonCell", in: bundle)`
+    static func lessonCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.lessonCell)
+    }
+    
     fileprivate init() {}
   }
   
   /// This `R.reuseIdentifier` struct is generated, and contains static references to 1 reuse identifiers.
   struct reuseIdentifier {
     /// Reuse identifier `LessonCell`.
-    static let lessonCell: Rswift.ReuseIdentifier<UIKit.UITableViewCell> = Rswift.ReuseIdentifier(identifier: "LessonCell")
+    static let lessonCell: Rswift.ReuseIdentifier<LessonCell> = Rswift.ReuseIdentifier(identifier: "LessonCell")
     
     fileprivate init() {}
   }
@@ -94,6 +102,20 @@ struct R: Rswift.Validatable {
 
 struct _R {
   struct nib {
+    struct _LessonCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType {
+      typealias ReusableType = LessonCell
+      
+      let bundle = R.hostingBundle
+      let identifier = "LessonCell"
+      let name = "LessonCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> LessonCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? LessonCell
+      }
+      
+      fileprivate init() {}
+    }
+    
     fileprivate init() {}
   }
   
