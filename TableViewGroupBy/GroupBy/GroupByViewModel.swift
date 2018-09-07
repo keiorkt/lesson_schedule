@@ -14,6 +14,7 @@ class GroupByViewModel {
     
     struct Input {
         let trigger: Driver<Void>
+        let groupingTrigger: Driver<Void>
     }
     
     struct Output {

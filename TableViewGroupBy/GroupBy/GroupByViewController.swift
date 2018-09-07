@@ -53,13 +53,18 @@ class GroupByViewController: UIViewController {
     
     private func bindViewModel() {
         
+        let groupingTrigger = groupButton.rx.tap
+            .map{ _ in ()
+                print("tapped")
+            }
+            .asDriver(onErrorJustReturn: ())
         
         let trigger = rx
             .sentMessage(#selector(viewWillAppear(_:)))
             .map{ _ in ()}
             .share(replay: 1)
         
-        let input = GroupByViewModel.Input(trigger: trigger.asDriver(onErrorJustReturn: ()))
+        let input = GroupByViewModel.Input(trigger: trigger.asDriver(onErrorJustReturn: ()), groupingTrigger: groupingTrigger)
         
         let output = viewModel.transform(input: input)
         
