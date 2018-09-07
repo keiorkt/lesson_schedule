@@ -1,0 +1,6 @@
+module Pods_TableViewGroupBy {
+  umbrella header "Pods-TableViewGroupBy-umbrella.h"
+
+  export *
+  module * { export * }
+}
