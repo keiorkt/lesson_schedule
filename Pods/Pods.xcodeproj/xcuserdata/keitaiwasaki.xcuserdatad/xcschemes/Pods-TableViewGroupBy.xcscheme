@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "56069646711856B12DFDBD048C8DE395"
+               BlueprintIdentifier = "1314D7E394F887436220C457E5AADE92"
                BlueprintName = "Pods-TableViewGroupBy"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "libPods-TableViewGroupBy.a">
