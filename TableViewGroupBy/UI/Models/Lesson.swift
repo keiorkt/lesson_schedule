@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Lesson {
+public struct Lesson: Comparable {
     let name: String
     let credit: Int
     let difficulty: Difficulty
@@ -19,4 +19,9 @@ public struct Lesson {
         case C = "C"
         case D = "D"
     }
+    
+    public static func < (lhs: Lesson, rhs: Lesson) -> Bool {
+        return lhs.difficulty.rawValue < rhs.difficulty.rawValue
+    }
 }
+

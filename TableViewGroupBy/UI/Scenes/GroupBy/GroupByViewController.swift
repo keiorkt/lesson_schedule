@@ -25,7 +25,7 @@ class GroupByViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationItem.title = "科目一覧"
+        navigationItem.title = "講座一覧"
     }
     
     override func viewDidLoad() {
@@ -34,6 +34,9 @@ class GroupByViewController: UIViewController {
         tableView.register(R.nib.lessonCell(), forCellReuseIdentifier: lessonReuseIdentifier)
         tableView.dataSource = nil
         tableView.delegate = nil
+        tableView.rx.setDelegate(self)
+            .disposed(by: disposeBag)
+        tableView.sectionHeaderHeight = 30
         
         setUpDataSource()
         bindViewModel()
@@ -46,6 +49,8 @@ class GroupByViewController: UIViewController {
                 let cell = tv.dequeueReusableCell(withIdentifier: lessonReuseIdentifier) as! LessonCell
                 cell.bind(item)
                 return cell
+        },titleForHeaderInSection: { ds, index in
+            return ds.sectionModels[index].header
         })
         
         self.dataSource = dataSource
@@ -70,8 +75,16 @@ class GroupByViewController: UIViewController {
             .drive(tableView.rx.items(dataSource: dataSource!))
             .disposed(by: disposeBag)
         
+        output.trigger
+            .drive()
+            .disposed(by: disposeBag)
+        
         output.groupingTrigger
             .drive()
             .disposed(by: disposeBag)
     }
+}
+
+extension GroupByViewController: UIScrollViewDelegate {
+    
 }
