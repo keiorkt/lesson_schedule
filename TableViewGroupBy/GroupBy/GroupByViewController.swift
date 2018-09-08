@@ -16,7 +16,7 @@ private let lessonReuseIdentifier = "LessonCell"
 class GroupByViewController: UIViewController {
     
     private let disposeBag: DisposeBag = DisposeBag()
-    private var dataSource : RxTableViewSectionedReloadDataSource<SectionModel<String,Lesson>>?
+    private var dataSource : RxTableViewSectionedReloadDataSource<GroupBySectionModel>?
     private var viewModel: GroupByViewModel = GroupByViewModel()
     
     
@@ -25,7 +25,6 @@ class GroupByViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         navigationItem.title = "科目一覧"
     }
     
@@ -42,7 +41,7 @@ class GroupByViewController: UIViewController {
     
     private func setUpDataSource() {
         
-        let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String,Lesson>>(
+        let dataSource = RxTableViewSectionedReloadDataSource<GroupBySectionModel>(
             configureCell: { (ds, tv, ip, item) -> UITableViewCell in
                 let cell = tv.dequeueReusableCell(withIdentifier: lessonReuseIdentifier) as! LessonCell
                 cell.bind(item)

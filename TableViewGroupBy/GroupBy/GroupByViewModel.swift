@@ -18,7 +18,7 @@ class GroupByViewModel {
     }
     
     struct Output {
-        let items: Driver<[SectionModel<String, Lesson>]>
+        let items: Driver<[GroupBySectionModel]>
         let groupingTrigger: Driver<Void>
     }
     
@@ -37,7 +37,7 @@ class GroupByViewModel {
     internal func transform(input: GroupByViewModel.Input) -> GroupByViewModel.Output {
         
         let items = self.lessons.asObservable()
-            .map{[SectionModel(model: "", items: $0)]}
+            .map{[GroupBySectionModel(header: $0.first!.name, items: $0)]}
             .asDriver(onErrorJustReturn: [])
         
         let groupingTrigger = input.groupingTrigger.asDriver(onErrorJustReturn: ())

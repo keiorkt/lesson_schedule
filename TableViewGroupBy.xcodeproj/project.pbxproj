@@ -14,10 +14,10 @@
 		88252A702142BE0300A18F0C /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88252A6F2142BE0300A18F0C /* R.generated.swift */; };
 		88252A722142BE2D00A18F0C /* GroupByViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88252A712142BE2D00A18F0C /* GroupByViewController.swift */; };
 		88252A752142BF2500A18F0C /* GroupByViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88252A742142BF2500A18F0C /* GroupByViewModel.swift */; };
-		88252A772142C23400A18F0C /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88252A762142C23400A18F0C /* Lesson.swift */; };
 		88252A7B2142E56800A18F0C /* GroupBySectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88252A7A2142E56800A18F0C /* GroupBySectionModel.swift */; };
 		88252A7E2142E70500A18F0C /* LessonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88252A7C2142E70500A18F0C /* LessonCell.swift */; };
 		88252A7F2142E70500A18F0C /* LessonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88252A7D2142E70500A18F0C /* LessonCell.xib */; };
+		88252A82214369F800A18F0C /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88252A81214369F700A18F0C /* Lesson.swift */; };
 		B2193A00FA419BD3102F7546 /* libPods-TableViewGroupBy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EA1314883F0B038F99382D /* libPods-TableViewGroupBy.a */; };
 /* End PBXBuildFile section */
 
@@ -33,10 +33,10 @@
 		88252A6F2142BE0300A18F0C /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		88252A712142BE2D00A18F0C /* GroupByViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupByViewController.swift; sourceTree = "<group>"; };
 		88252A742142BF2500A18F0C /* GroupByViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupByViewModel.swift; sourceTree = "<group>"; };
-		88252A762142C23400A18F0C /* Lesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lesson.swift; sourceTree = "<group>"; };
 		88252A7A2142E56800A18F0C /* GroupBySectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupBySectionModel.swift; sourceTree = "<group>"; };
 		88252A7C2142E70500A18F0C /* LessonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCell.swift; sourceTree = "<group>"; };
 		88252A7D2142E70500A18F0C /* LessonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LessonCell.xib; sourceTree = "<group>"; };
+		88252A81214369F700A18F0C /* Lesson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lesson.swift; sourceTree = "<group>"; };
 		D5BBF08DC3042AA354288C56 /* Pods-TableViewGroupBy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TableViewGroupBy.release.xcconfig"; path = "Pods/Target Support Files/Pods-TableViewGroupBy/Pods-TableViewGroupBy.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,6 +82,7 @@
 		88252A5B2142BCB700A18F0C /* TableViewGroupBy */ = {
 			isa = PBXGroup;
 			children = (
+				88252A80214369F700A18F0C /* Models */,
 				88252A732142BEFC00A18F0C /* GroupBy */,
 				88252A6F2142BE0300A18F0C /* R.generated.swift */,
 				88252A5C2142BCB700A18F0C /* AppDelegate.swift */,
@@ -98,12 +99,19 @@
 			children = (
 				88252A712142BE2D00A18F0C /* GroupByViewController.swift */,
 				88252A742142BF2500A18F0C /* GroupByViewModel.swift */,
-				88252A762142C23400A18F0C /* Lesson.swift */,
 				88252A7A2142E56800A18F0C /* GroupBySectionModel.swift */,
 				88252A7C2142E70500A18F0C /* LessonCell.swift */,
 				88252A7D2142E70500A18F0C /* LessonCell.xib */,
 			);
 			path = GroupBy;
+			sourceTree = "<group>";
+		};
+		88252A80214369F700A18F0C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				88252A81214369F700A18F0C /* Lesson.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		F9F45F1C4A150453526DCCAD /* Frameworks */ = {
@@ -224,8 +232,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				88252A7E2142E70500A18F0C /* LessonCell.swift in Sources */,
-				88252A772142C23400A18F0C /* Lesson.swift in Sources */,
 				88252A722142BE2D00A18F0C /* GroupByViewController.swift in Sources */,
+				88252A82214369F800A18F0C /* Lesson.swift in Sources */,
 				88252A7B2142E56800A18F0C /* GroupBySectionModel.swift in Sources */,
 				88252A5D2142BCB700A18F0C /* AppDelegate.swift in Sources */,
 				88252A702142BE0300A18F0C /* R.generated.swift in Sources */,
