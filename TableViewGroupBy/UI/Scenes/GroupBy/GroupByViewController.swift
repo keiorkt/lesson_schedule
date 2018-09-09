@@ -19,24 +19,36 @@ class GroupByViewController: UIViewController {
     private var dataSource : RxTableViewSectionedReloadDataSource<GroupBySectionModel>?
     private var viewModel: GroupByViewModel = GroupByViewModel()
     
+    private var isAll: Bool = true
+    private var isFirstLoad: Bool = true
     
     @IBOutlet weak var groupButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationItem.title = "科目一覧"
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpNavigationBar()
+        setUpTableView()
+        setUpDataSource()
+        bindViewModel()
+    }
+    
+    private func setUpNavigationBar() {
+        navigationItem.title = "講座一覧"
+        navigationItem.rightBarButtonItem?.title = "難易度別"
+    }
+    
+    private func setUpTableView() {
         tableView.register(R.nib.lessonCell(), forCellReuseIdentifier: lessonReuseIdentifier)
         tableView.dataSource = nil
         tableView.delegate = nil
-        
-        setUpDataSource()
-        bindViewModel()
+        tableView.rx.setDelegate(self).disposed(by: disposeBag)
+        tableView.sectionHeaderHeight = 30
     }
     
     private func setUpDataSource() {
@@ -46,6 +58,8 @@ class GroupByViewController: UIViewController {
                 let cell = tv.dequeueReusableCell(withIdentifier: lessonReuseIdentifier) as! LessonCell
                 cell.bind(item)
                 return cell
+        },titleForHeaderInSection: { ds, index in
+            return ds.sectionModels[index].header
         })
         
         self.dataSource = dataSource
@@ -70,8 +84,31 @@ class GroupByViewController: UIViewController {
             .drive(tableView.rx.items(dataSource: dataSource!))
             .disposed(by: disposeBag)
         
-        output.groupingTrigger
+        output.trigger
             .drive()
+            .disposed(by: disposeBag)
+        
+        output.groupingTrigger
+            .drive(onNext: { [weak self] in
+                guard let wSelf = self else { return }
+                
+                if wSelf.isAll && !wSelf.isFirstLoad {
+                    wSelf.navigationItem.rightBarButtonItem?.title = "難易度別"
+                    wSelf.isAll = false
+                } else {
+                    wSelf.navigationItem.rightBarButtonItem?.title = "すべて"
+                    wSelf.isAll = true
+                }
+                
+                wSelf.isFirstLoad = false
+                
+                wSelf.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            })
             .disposed(by: disposeBag)
     }
 }
+
+extension GroupByViewController: UIScrollViewDelegate {
+    // in order to set the delegate for the tableview
+}
+

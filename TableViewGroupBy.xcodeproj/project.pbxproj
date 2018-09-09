@@ -113,11 +113,11 @@
 		88252A8521436E7000A18F0C /* GroupBy */ = {
 			isa = PBXGroup;
 			children = (
-				88252A8621436E7000A18F0C /* GroupBySectionModel.swift */,
-				88252A8721436E7000A18F0C /* GroupByViewModel.swift */,
 				88252A8821436E7000A18F0C /* GroupByViewController.swift */,
-				88252A8921436E7000A18F0C /* LessonCell.xib */,
+				88252A8721436E7000A18F0C /* GroupByViewModel.swift */,
+				88252A8621436E7000A18F0C /* GroupBySectionModel.swift */,
 				88252A8A21436E7000A18F0C /* LessonCell.swift */,
+				88252A8921436E7000A18F0C /* LessonCell.xib */,
 			);
 			path = GroupBy;
 			sourceTree = "<group>";
