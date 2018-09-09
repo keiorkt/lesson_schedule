@@ -1,5 +1,3 @@
-# lesson_schedule
-
 **セクション分けの関数をTableViewで実装してみました**
 
 デモ動画
