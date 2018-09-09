@@ -36,8 +36,6 @@ class GroupByViewModel {
                                               Lesson.init(name: "中国語", credit: 2, difficulty: .C),
                                               Lesson.init(name: "社会学", credit: 2, difficulty: .C)]])
     
-    private var lessonsDict = Variable<[String:Array<Lesson>]>([:])
-    
     internal func transform(input: GroupByViewModel.Input) -> GroupByViewModel.Output {
 
         let trigger = input.trigger
@@ -45,29 +43,40 @@ class GroupByViewModel {
                 guard let wSelf = self else { return }
                 
                 let lessonList = wSelf.lessons.value[0]
-                
-                let normalDict = ["":lessonList] as [String:Array<Lesson>]
-                
-                wSelf.lessonsDict.value = normalDict
             })
             .asDriver(onErrorJustReturn: ())
         
-        let items = self.lessonsDict.asObservable()
-            .map{ (dictList) -> [GroupBySectionModel] in
-                return dictList.map { (dict) -> GroupBySectionModel in
-                    return GroupBySectionModel(header: dict.key, items: dict.value)
+        let items = self.lessons.asObservable()
+            .map { (lessonMultiList) -> [GroupBySectionModel] in
+                
+                if lessonMultiList.count == 1 {
+                    self.isGrouped = false
+                } else {
+                    self.isGrouped = true
+                }
+                
+                return lessonMultiList.map { (lessonList) -> GroupBySectionModel in
+                    
+                    switch self.isGrouped {
+                        case true:
+                            return GroupBySectionModel(header: lessonList[0].difficulty.rawValue, items: lessonList)
+                        case false:
+                            return GroupBySectionModel(header: "すべて", items: lessonList)
+                    }
                 }
             }
             .asDriver(onErrorJustReturn: [])
+        
     
         let groupingTrigger = input.groupingTrigger
             .do(onNext: { [weak self] _ -> () in
                 guard let wSelf = self else { return }
                 
                 if wSelf.isGrouped == true {
-                    let flatDict = ["key":wSelf.lessons.value[0]]
                     
-                    wSelf.lessonsDict.value = flatDict
+                    let flatLessonList = [wSelf.lessons.value.reduce([], +)]
+                    
+                    wSelf.lessons.value = flatLessonList
                     wSelf.isGrouped = false
                 } else {
                     let lessonList = wSelf.lessons.value[0]
@@ -75,9 +84,16 @@ class GroupByViewModel {
                     let groupedDict = Dictionary.init(grouping: lessonList, by: { (lesson) -> String in
                         return lesson.difficulty.rawValue
                     })
-
-                    print(sortedDict)
-                    wSelf.lessonsDict.value = groupedDict.so
+                    
+                    let keys = groupedDict.keys.sorted()
+                    
+                    var groupedLesson = [[Lesson]]()
+                    
+                    keys.forEach { (key) in
+                        groupedLesson.append(groupedDict[key]!)
+                    }
+                    
+                    wSelf.lessons.value = groupedLesson
                     wSelf.isGrouped = true
                 }
             })
